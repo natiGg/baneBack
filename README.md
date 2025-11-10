@@ -14,15 +14,29 @@ This is the **Spring Boot backend** for the Bane Migration Tool. It provides RES
 
 ## Running the Backend
 1. Navigate to the backend folder:
-```bash
+
 cd bane
-```
+
 2. Build and run the application:
-```bash
+
 mvn clean install
 mvn spring-boot:run
-```
+
 3. Backend API runs at: `http://localhost:8080`
+
+
+## Production Build Steps
+1. Build a fat JAR with the active profile:
+
+mvn clean package -Pprod
+
+2. Run the JAR:
+
+java -jar target/bane-backend-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+
+
+3. Backend API runs at: `http://localhost:8385`
+
 
 ## API Endpoints
 | Method | Endpoint | Description |
@@ -57,3 +71,17 @@ mvn spring-boot:run
 - Uses DTOs to expose only required data to the frontend.
 - ResponseEntity used to standardize HTTP status and messages.
 
+
+## Profiles & Configuration
+
+This project uses **Spring Profiles** to manage different environments.
+default activated dev 
+
+- `application.properties` – common properties
+- `application-dev.properties` – development-specific properties
+- `application-prod.properties` – production-specific properties
+
+You can set the active profile in `application.properties`:
+
+```properties
+spring.profiles.active=@activatedProperties@
